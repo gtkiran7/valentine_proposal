@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Open it guiye </title>
+    <title>Valentine's Proposal</title>
     <style>
         body {
             font-family: 'Arial', sans-serif;
@@ -65,22 +65,26 @@
 
     <div id="really" class="container hidden">
         <h1>Really?</h1>
-        <button id="really-btn">Really?</button>
+        <button id="really-yes">Yes</button>
+        <button id="really-no">No</button>
     </div>
 
     <div id="sure" class="container hidden">
         <h1>Are you sure?</h1>
-        <button id="sure-btn">Are you sure?</button>
+        <button id="sure-yes">Yes</button>
+        <button id="sure-no">No</button>
     </div>
 
     <div id="think" class="container hidden">
         <h1>Think again</h1>
-        <button id="think-btn">Think again</button>
+        <button id="think-yes">Yes</button>
+        <button id="think-no">No</button>
     </div>
 
     <div id="seriously" class="container hidden">
         <h1>Seriously?</h1>
-        <button id="seriously-btn">Seriously?</button>
+        <button id="seriously-yes">Yes</button>
+        <button id="seriously-no">No</button>
     </div>
 
     <div id="no-choice" class="container hidden">
@@ -90,9 +94,9 @@
 
     <div id="valentine" class="container hidden">
         <div class="valentine">
-            <h1>Happy Valentine's Day, Budii!</h1>
+            <h1>Happy Valentine's Day, Shristy!</h1>
             <p>You are the love of my life, my everything. Every moment with you is a treasure. I love you more than words can say. Will you be my Valentine forever?</p>
-            <img src="https://via.placeholder.com/400x300/ff69b4/ffffff?text=Love+You" alt="Valentine's Image"> <!-- Replace with a real image URL if desired -->
+            <img src="our-photo.jpg" alt="Our Photo"> <!-- Replace with your photo filename if different -->
         </div>
     </div>
 
@@ -106,48 +110,52 @@
         const noChoice = document.getElementById('no-choice');
         const valentine = document.getElementById('valentine');
 
-        // Initial buttons
-        document.getElementById('yes').addEventListener('click', () => {
-            initial.classList.add('hidden');
+        // Function to show valentine
+        function showValentine() {
+            // Hide all containers
+            [initial, really, sure, think, seriously, noChoice].forEach(el => el.classList.add('hidden'));
             valentine.classList.remove('hidden');
-        });
+        }
 
+        // Initial buttons
+        document.getElementById('yes').addEventListener('click', showValentine);
         document.getElementById('no').addEventListener('click', () => {
             initial.classList.add('hidden');
             really.classList.remove('hidden');
         });
 
-        // Really button
-        document.getElementById('really-btn').addEventListener('click', () => {
+        // Really buttons
+        document.getElementById('really-yes').addEventListener('click', showValentine);
+        document.getElementById('really-no').addEventListener('click', () => {
             really.classList.add('hidden');
             sure.classList.remove('hidden');
         });
 
-        // Sure button
-        document.getElementById('sure-btn').addEventListener('click', () => {
+        // Sure buttons
+        document.getElementById('sure-yes').addEventListener('click', showValentine);
+        document.getElementById('sure-no').addEventListener('click', () => {
             sure.classList.add('hidden');
             think.classList.remove('hidden');
         });
 
-        // Think button
-        document.getElementById('think-btn').addEventListener('click', () => {
+        // Think buttons
+        document.getElementById('think-yes').addEventListener('click', showValentine);
+        document.getElementById('think-no').addEventListener('click', () => {
             think.classList.add('hidden');
             seriously.classList.remove('hidden');
         });
 
-        // Seriously button
-        document.getElementById('seriously-btn').addEventListener('click', () => {
+        // Seriously buttons
+        document.getElementById('seriously-yes').addEventListener('click', showValentine);
+        document.getElementById('seriously-no').addEventListener('click', () => {
             seriously.classList.add('hidden');
             noChoice.classList.remove('hidden');
         });
 
         // No choice button
-        document.getElementById('yes-or-yes').addEventListener('click', () => {
-            noChoice.classList.add('hidden');
-            valentine.classList.remove('hidden');
-        });
+        document.getElementById('yes-or-yes').addEventListener('click', showValentine);
     </script>
 </body>
-
 </html>
+
 
