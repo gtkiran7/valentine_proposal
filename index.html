@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Valentine's Proposal</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(45deg, #ff69b4, #ff1493); /* Pink and red gradient */
+            color: white;
+            text-align: center;
+        }
+        .container {
+            max-width: 600px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+        }
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+        }
+        button {
+            background: #ff1493;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.2em;
+            margin: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        button:hover {
+            background: #ff69b4;
+        }
+        .hidden {
+            display: none;
+        }
+        .valentine {
+            font-size: 1.5em;
+            line-height: 1.6;
+        }
+        .valentine img {
+            max-width: 100%;
+            height: auto;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div id="initial" class="container">
+        <h1>Do you love me, Shristy?</h1>
+        <button id="yes">Yes</button>
+        <button id="no">No</button>
+    </div>
+
+    <div id="really" class="container hidden">
+        <h1>Really?</h1>
+        <button id="really-btn">Really?</button>
+    </div>
+
+    <div id="sure" class="container hidden">
+        <h1>Are you sure?</h1>
+        <button id="sure-btn">Are you sure?</button>
+    </div>
+
+    <div id="think" class="container hidden">
+        <h1>Think again</h1>
+        <button id="think-btn">Think again</button>
+    </div>
+
+    <div id="seriously" class="container hidden">
+        <h1>Seriously?</h1>
+        <button id="seriously-btn">Seriously?</button>
+    </div>
+
+    <div id="no-choice" class="container hidden">
+        <h1>No choice</h1>
+        <button id="yes-or-yes">Yes or Yes</button>
+    </div>
+
+    <div id="valentine" class="container hidden">
+        <div class="valentine">
+            <h1>Happy Valentine's Day, Shristy!</h1>
+            <p>You are the love of my life, my everything. Every moment with you is a treasure. I love you more than words can say. Will you be my Valentine forever?</p>
+            <img src="https://via.placeholder.com/400x300/ff69b4/ffffff?text=Love+You" alt="Valentine's Image"> <!-- Replace with a real image URL if desired -->
+        </div>
+    </div>
+
+    <script>
+        // Get elements
+        const initial = document.getElementById('initial');
+        const really = document.getElementById('really');
+        const sure = document.getElementById('sure');
+        const think = document.getElementById('think');
+        const seriously = document.getElementById('seriously');
+        const noChoice = document.getElementById('no-choice');
+        const valentine = document.getElementById('valentine');
+
+        // Initial buttons
+        document.getElementById('yes').addEventListener('click', () => {
+            initial.classList.add('hidden');
+            valentine.classList.remove('hidden');
+        });
+
+        document.getElementById('no').addEventListener('click', () => {
+            initial.classList.add('hidden');
+            really.classList.remove('hidden');
+        });
+
+        // Really button
+        document.getElementById('really-btn').addEventListener('click', () => {
+            really.classList.add('hidden');
+            sure.classList.remove('hidden');
+        });
+
+        // Sure button
+        document.getElementById('sure-btn').addEventListener('click', () => {
+            sure.classList.add('hidden');
+            think.classList.remove('hidden');
+        });
+
+        // Think button
+        document.getElementById('think-btn').addEventListener('click', () => {
+            think.classList.add('hidden');
+            seriously.classList.remove('hidden');
+        });
+
+        // Seriously button
+        document.getElementById('seriously-btn').addEventListener('click', () => {
+            seriously.classList.add('hidden');
+            noChoice.classList.remove('hidden');
+        });
+
+        // No choice button
+        document.getElementById('yes-or-yes').addEventListener('click', () => {
+            noChoice.classList.add('hidden');
+            valentine.classList.remove('hidden');
+        });
+    </script>
+</body>
+</html>
