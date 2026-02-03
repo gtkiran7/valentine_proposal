@@ -3,164 +3,239 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>for_my_AngryBird</title>
+    <title>Romantic Interactive Story</title>
     <style>
         body {
-            font-family: 'Arial', sans-serif;
-            margin: 0;
-            padding: 0;
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background: linear-gradient(45deg, #ff69b4, #ff1493); /* Pink and red gradient */
-            color: white;
+            font-family: Arial, sans-serif;
             text-align: center;
-        }
-        .container {
-            max-width: 600px;
+            margin: 0;
             padding: 20px;
-            background: rgba(255, 255, 255, 0.1);
+            transition: background 0.5s ease;
+        }
+        .page {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
             border-radius: 10px;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
         }
-        h1 {
-            font-size: 2.5em;
-            margin-bottom: 20px;
-        }
-        button {
-            background: #ff1493;
-            color: white;
-            border: none;
-            padding: 15px 30px;
-            font-size: 1.2em;
-            margin: 10px;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background 0.3s;
-        }
-        button:hover {
-            background: #ff69b4;
-        }
-        .hidden {
-            display: none;
-        }
-        .valentine {
-            font-size: 1.5em;
-            line-height: 1.6;
-        }
-        .valentine img {
-            max-width: 100%;
-            height: auto;
-            margin-top: 20px;
-        }
+        .background-intro { background: linear-gradient(to bottom, #ffeaa7, #fab1a0); } /* Warm intro */
+        .background-couple { background: linear-gradient(to bottom, #fd79a8, #e84393); } /* Pink couple theme */
+        .background-question { background: linear-gradient(to bottom, #a29bfe, #6c5ce7); } /* Purple ? theme */
+        .background-missing { background: linear-gradient(to bottom, #74b9ff, #0984e3); } /* Blue missing theme */
+        .background-propose { background: linear-gradient(to bottom, #fdcb6e, #e17055); } /* Orange propose theme */
+        .background-chocolate { background: linear-gradient(to bottom, #a8e6cf, #dcedc8); } /* Green chocolate theme */
+        .background-teddy { background: linear-gradient(to bottom, #f8c291, #f39c12); } /* Yellow teddy theme */
+        .background-promise { background: linear-gradient(to bottom, #badc58, #6ab04c); } /* Green promise theme */
+        .background-hug { background: linear-gradient(to bottom, #f0932b, #eb4d4b); } /* Red hug theme */
+        .background-kiss { background: linear-gradient(to bottom, #ff7675, #d63031); } /* Red kiss theme */
+        .background-valentine { background: linear-gradient(to bottom, #ff6b6b, #ee5a24); } /* Red valentine theme */
+        .background-sad { background: linear-gradient(to bottom, #636e72, #2d3436); color: white; } /* Gray sad theme */
+        .fireworks { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; overflow: hidden; }
+        .firework { position: absolute; font-size: 2em; animation: explode 2s ease-out forwards; }
+        @keyframes explode { 0% { transform: scale(0); opacity: 1; } 100% { transform: scale(2); opacity: 0; } }
+        input, button { margin: 10px; padding: 10px; font-size: 16px; }
+        button { background: #0984e3; color: white; border: none; border-radius: 5px; cursor: pointer; }
+        button:hover { background: #74b9ff; }
     </style>
 </head>
 <body>
-    <div id="initial" class="container">
-        <h1>Do you love me, Shristy?</h1>
-        <button id="yes">Yes</button>
-        <button id="no">No</button>
-    </div>
-
-    <div id="really" class="container hidden">
-        <h1>haa? you dont love me ?</h1>
-        <button id="really-yes">Yes</button>
-        <button id="really-no">No</button>
-    </div>
-
-    <div id="sure" class="container hidden">
-        <h1> do you like me?</h1>
-        <button id="sure-yes">Yes</button>
-        <button id="sure-no">No</button>
-    </div>
-
-    <div id="think" class="container hidden">
-        <h1>Think again</h1>
-        <button id="think-yes">Yes</button>
-        <button id="think-no">No</button>
-    </div>
-
-    <div id="seriously im asking you for the last time ?" class="container hidden">
-        <h1>Seriously im asking you for the last time ?</h1>
-        <button id="seriously-yes">Yes</button>
-        <button id="seriously-no">No</button>
-    </div>
-
-    <div id="no-choice" class="container hidden">
-        <h1>No choice</h1>
-        <button id="yes-or-yes">yes</button>
-    </div>
-
-    <div id="valentine" class="container hidden">
-        <div class="valentine">
-            <h1>Happy Valentine's Day, Budii!</h1>
-            <p>You are the love of my life, my everything. Every moment with you is a treasure. I love you more than words can say. Will you be my Valentine forever?</p>
-            <img src="our-photo.jpg" alt="Our Photo"> <!-- Replace with your photo filename if different -->
-        </div>
+    <div id="content" class="page background-intro">
+        <!-- Initial content will be set by JS -->
     </div>
 
     <script>
-        // Get elements
-        const initial = document.getElementById('initial');
-        const really = document.getElementById('really');
-        const sure = document.getElementById('sure');
-        const think = document.getElementById('think');
-        const seriously = document.getElementById('seriously');
-        const noChoice = document.getElementById('no-choice');
-        const valentine = document.getElementById('valentine');
+        const content = document.getElementById('content');
+        let currentPage = 'intro';
 
-        // Function to show valentine
-        function showValentine() {
-            // Hide all containers
-            [initial, really, sure, think, seriously, noChoice].forEach(el => el.classList.add('hidden'));
-            valentine.classList.remove('hidden');
+        function loadPage(page) {
+            currentPage = page;
+            switch (page) {
+                case 'intro':
+                    content.className = 'page background-intro';
+                    content.innerHTML = `
+                        <h1>Introduce Yourself</h1>
+                        <p>Background: Warm, welcoming introduction screen with soft pastel colors.</p>
+                        <p><strong>WHO ARE YOU?</strong></p>
+                        <input type="text" id="nameInput" placeholder="Enter your name">
+                        <button onclick="checkName()">Submit</button>
+                    `;
+                    break;
+                case 'couple':
+                    content.className = 'page background-couple';
+                    content.innerHTML = `
+                        <h1>Who Do You Love the Most?</h1>
+                        <p>Background: Romantic couple theme with hearts and photos.</p>
+                        <p>Enter the name of the one you love the most:</p>
+                        <input type="text" id="loveInput" placeholder="Enter name">
+                        <button onclick="checkLove()">Submit</button>
+                    `;
+                    break;
+                case 'missing':
+                    content.className = 'page background-missing';
+                    content.innerHTML = `
+                        <h1>I Miss You</h1>
+                        <p>Background: Emotional missing theme with longing visuals.</p>
+                        <p>What do you say to express your feelings?</p>
+                        <input type="text" id="missInput" placeholder="Enter your response">
+                        <button onclick="checkMiss()">Submit</button>
+                    `;
+                    break;
+                case 'propose':
+                    content.className = 'page background-propose';
+                    content.innerHTML = `
+                        <h1>Happy Propose Day, My Love!</h1>
+                        <p>Background: Proposal theme with rings and romance.</p>
+                        <button onclick="nextDay('chocolate')">Accept Proposal</button>
+                        <button onclick="endSad()">Decline</button>
+                    `;
+                    break;
+                case 'chocolate':
+                    content.className = 'page background-chocolate';
+                    content.innerHTML = `
+                        <h1>Happy Chocolate Day, My Love!</h1>
+                        <p>Background: Chocolates everywhere.</p>
+                        <button onclick="nextDay('teddy')">Accept</button>
+                        <button onclick="endSad()">Decline</button>
+                    `;
+                    break;
+                case 'teddy':
+                    content.className = 'page background-teddy';
+                    content.innerHTML = `
+                        <h1>Happy Teddy Day, My Love!</h1>
+                        <p>Background: Teddies and cuddly toys.</p>
+                        <button onclick="nextDay('promise')">Accept</button>
+                        <button onclick="endSad()">Decline</button>
+                    `;
+                    break;
+                case 'promise':
+                    content.className = 'page background-promise';
+                    content.innerHTML = `
+                        <h1>Happy Promise Day, My Love!</h1>
+                        <p>Background: Promising theme with vows.</p>
+                        <button onclick="nextDay('hug')">Accept</button>
+                        <button onclick="endSad()">Decline</button>
+                    `;
+                    break;
+                case 'hug':
+                    content.className = 'page background-hug';
+                    content.innerHTML = `
+                        <h1>Happy Hug Day, My Love!</h1>
+                        <p>Background: Hugging theme with warm embraces.</p>
+                        <button onclick="nextDay('kiss')">Accept</button>
+                        <button onclick="endSad()">Decline</button>
+                    `;
+                    break;
+                case 'kiss':
+                    content.className = 'page background-kiss';
+                    content.innerHTML = `
+                        <h1>Happy Kiss Day, My Love!</h1>
+                        <p>Background: Kissing theme with romantic scenes.</p>
+                        <button onclick="nextDay('message')">Accept</button>
+                        <button onclick="endSad()">Decline</button>
+                    `;
+                    break;
+                case 'message':
+                    content.className = 'page background-valentine';
+                    content.innerHTML = `
+                        <h1>Every day with you feels brighter ☀️ and lighter. You make my heart feel safe, happy, and full 💓. I’m so grateful I get to love you and call you mine 🥰💖</h1>
+                        <p>Background: Beautiful photo with hearts.</p>
+                        <button onclick="loadPage('valentine')">Continue</button>
+                    `;
+                    break;
+                case 'valentine':
+                    content.className = 'page background-valentine';
+                    content.innerHTML = `
+                        <h1>Happy Valentine's Day, My Love!</h1>
+                        <p>Background: Beautiful Valentine's photo.</p>
+                        <button onclick="fireworks()">Love</button>
+                    `;
+                    break;
+                case 'question':
+                    content.className = 'page background-question';
+                    content.innerHTML = `
+                        <h1>?</h1>
+                        <p>Background: Mysterious question mark theme.</p>
+                        <p>Try again!</p>
+                        <input type="text" id="retryInput" placeholder="Enter correct name/response">
+                        <button onclick="retry()">Try Again</button>
+                    `;
+                    break;
+                case 'sad':
+                    content.className = 'page background-sad';
+                    content.innerHTML = `
+                        <h1>GOODBYE</h1>
+                        <p>Background: Sad theme with tears.</p>
+                        <p>Refresh the page to start over.</p>
+                    `;
+                    break;
+            }
         }
 
-        // Initial buttons
-        document.getElementById('yes').addEventListener('click', showValentine);
-        document.getElementById('no').addEventListener('click', () => {
-            initial.classList.add('hidden');
-            really.classList.remove('hidden');
-        });
+        function checkName() {
+            const name = document.getElementById('nameInput').value.trim().toUpperCase();
+            if (name === 'SHRISTY GT') {
+                loadPage('couple');
+            } else {
+                loadPage('question');
+            }
+        }
 
-        // Really buttons
-        document.getElementById('really-yes').addEventListener('click', showValentine);
-        document.getElementById('really-no').addEventListener('click', () => {
-            really.classList.add('hidden');
-            sure.classList.remove('hidden');
-        });
+        function checkLove() {
+            const love = document.getElementById('loveInput').value.trim().toUpperCase();
+            if (love === 'KIRAN GT') {
+                loadPage('missing');
+            } else {
+                loadPage('question');
+            }
+        }
 
-        // Sure buttons
-        document.getElementById('sure-yes').addEventListener('click', showValentine);
-        document.getElementById('sure-no').addEventListener('click', () => {
-            sure.classList.add('hidden');
-            think.classList.remove('hidden');
-        });
+        function checkMiss() {
+            const miss = document.getElementById('missInput').value.trim().toUpperCase();
+            if (miss === 'I MISS YOU') {
+                loadPage('propose');
+            } else {
+                loadPage('question');
+            }
+        }
 
-        // Think buttons
-        document.getElementById('think-yes').addEventListener('click', showValentine);
-        document.getElementById('think-no').addEventListener('click', () => {
-            think.classList.add('hidden');
-            seriously.classList.remove('hidden');
-        });
+        function nextDay(next) {
+            loadPage(next);
+        }
 
-        // Seriously buttons
-        document.getElementById('seriously-yes').addEventListener('click', showValentine);
-        document.getElementById('seriously-no').addEventListener('click', () => {
-            seriously.classList.add('hidden');
-            noChoice.classList.remove('hidden');
-        });
+        function endSad() {
+            loadPage('sad');
+        }
 
-        // No choice button
-        document.getElementById('yes-or-yes').addEventListener('click', showValentine);
+        function retry() {
+            const input = document.getElementById('retryInput').value.trim().toUpperCase();
+            if (currentPage === 'question' && (input === 'SHRISTY GT' || input === 'KIRAN GT' || input === 'I MISS YOU')) {
+                if (input === 'SHRISTY GT') loadPage('couple');
+                else if (input === 'KIRAN GT') loadPage('missing');
+                else loadPage('propose');
+            } else {
+                alert('Still wrong! Try again.');
+            }
+        }
+
+        function fireworks() {
+            const container = document.createElement('div');
+            container.className = 'fireworks';
+            document.body.appendChild(container);
+            for (let i = 0; i < 20; i++) {
+                const firework = document.createElement('div');
+                firework.className = 'firework';
+                firework.textContent = '🎆';
+                firework.style.left = Math.random() * 100 + '%';
+                firework.style.top = Math.random() * 100 + '%';
+                firework.style.animationDelay = Math.random() * 2 + 's';
+                container.appendChild(firework);
+            }
+            setTimeout(() => document.body.removeChild(container), 3000);
+        }
+
+        // Start with intro
+        loadPage('intro');
     </script>
 </body>
 </html>
-
-
-
-
-
-
-
