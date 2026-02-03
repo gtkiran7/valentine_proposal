@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Romantic Interactive Story</title>
+    <title>WTF</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -24,23 +24,6 @@
             flex-direction: column;
             justify-content: center;
             opacity: 1;
-            transform: translateX(0) scale(1) rotate(0deg);
-            transition: opacity 0.4s ease, transform 0.4s ease;
-        }
-        .page.hidden {
-            opacity: 0;
-        }
-        .page.slide-in-left {
-            transform: translateX(-100%);
-        }
-        .page.slide-in-right {
-            transform: translateX(100%);
-        }
-        .page.zoom-in {
-            transform: scale(0.8);
-        }
-        .page.rotate-in {
-            transform: rotate(180deg);
         }
         .background-intro { background-image: url('https://example.com/intro-background.jpg'); }
         .background-couple { background-image: url('https://example.com/couple-background.jpg'); }
@@ -72,14 +55,23 @@
         const content = document.getElementById('content');
         let currentPage = 'intro';
 
-        function loadPage(page, transition = 'fade') {
-            // Instantly hide current page
-            content.classList.add('hidden');
-            // Use requestAnimationFrame for smooth update
-            requestAnimationFrame(() => {
-                // Reset classes
+        function fadeOut(callback, duration = 300) {
+            content.style.transition = `opacity ${duration}ms ease`;
+            content.style.opacity = '0';
+            setTimeout(callback, duration);
+        }
+
+        function fadeIn(duration = 300) {
+            content.style.transition = `opacity ${duration}ms ease`;
+            content.style.opacity = '1';
+        }
+
+        function loadPage(page, fadeDuration = 300) {
+            fadeOut(() => {
+                // Reset
                 content.className = 'page';
-                // Load new content and apply background + transition class
+                content.style.opacity = '0';
+                // Load new content
                 switch (page) {
                     case 'intro':
                         content.classList.add('background-intro');
@@ -93,7 +85,7 @@
                         `;
                         break;
                     case 'couple':
-                        content.classList.add('background-couple', 'slide-in-left');
+                        content.classList.add('background-couple');
                         content.innerHTML = `
                             <div class="content-overlay">
                                 <h1>Who Do You Love the Most?</h1>
@@ -104,7 +96,7 @@
                         `;
                         break;
                     case 'missing':
-                        content.classList.add('background-missing', 'slide-in-right');
+                        content.classList.add('background-missing');
                         content.innerHTML = `
                             <div class="content-overlay">
                                 <h1>I Miss You</h1>
@@ -115,76 +107,76 @@
                         `;
                         break;
                     case 'propose':
-                        content.classList.add('background-propose', 'zoom-in');
+                        content.classList.add('background-propose');
                         content.innerHTML = `
                             <div class="content-overlay">
                                 <h1>Happy Propose Day, My Love!</h1>
-                                <button onclick="nextDay('chocolate', 'slide-in-left')">Accept Proposal</button>
-                                <button onclick="endSad('rotate-in')">Decline</button>
+                                <button onclick="nextDay('chocolate')">Accept Proposal</button>
+                                <button onclick="endSad()">Decline</button>
                             </div>
                         `;
                         break;
                     case 'chocolate':
-                        content.classList.add('background-chocolate', 'slide-in-left');
+                        content.classList.add('background-chocolate');
                         content.innerHTML = `
                             <div class="content-overlay">
                                 <h1>Happy Chocolate Day, My Love!</h1>
-                                <button onclick="nextDay('teddy', 'slide-in-left')">Accept</button>
-                                <button onclick="endSad('rotate-in')">Decline</button>
+                                <button onclick="nextDay('teddy')">Accept</button>
+                                <button onclick="endSad()">Decline</button>
                             </div>
                         `;
                         break;
                     case 'teddy':
-                        content.classList.add('background-teddy', 'zoom-in');
+                        content.classList.add('background-teddy');
                         content.innerHTML = `
                             <div class="content-overlay">
                                 <h1>Happy Teddy Day, My Love!</h1>
-                                <button onclick="nextDay('promise', 'slide-in-left')">Accept</button>
-                                <button onclick="endSad('rotate-in')">Decline</button>
+                                <button onclick="nextDay('promise')">Accept</button>
+                                <button onclick="endSad()">Decline</button>
                             </div>
                         `;
                         break;
                     case 'promise':
-                        content.classList.add('background-promise', 'slide-in-left');
+                        content.classList.add('background-promise');
                         content.innerHTML = `
                             <div class="content-overlay">
                                 <h1>Happy Promise Day, My Love!</h1>
-                                <button onclick="nextDay('hug', 'slide-in-left')">Accept</button>
-                                <button onclick="endSad('rotate-in')">Decline</button>
+                                <button onclick="nextDay('hug')">Accept</button>
+                                <button onclick="endSad()">Decline</button>
                             </div>
                         `;
                         break;
                     case 'hug':
-                        content.classList.add('background-hug', 'zoom-in');
+                        content.classList.add('background-hug');
                         content.innerHTML = `
                             <div class="content-overlay">
                                 <h1>Happy Hug Day, My Love!</h1>
-                                <button onclick="nextDay('kiss', 'slide-in-left')">Accept</button>
-                                <button onclick="endSad('rotate-in')">Decline</button>
+                                <button onclick="nextDay('kiss')">Accept</button>
+                                <button onclick="endSad()">Decline</button>
                             </div>
                         `;
                         break;
                     case 'kiss':
-                        content.classList.add('background-kiss', 'slide-in-left');
+                        content.classList.add('background-kiss');
                         content.innerHTML = `
                             <div class="content-overlay">
                                 <h1>Happy Kiss Day, My Love!</h1>
-                                <button onclick="nextDay('message', 'slide-in-left')">Accept</button>
-                                <button onclick="endSad('rotate-in')">Decline</button>
+                                <button onclick="nextDay('message')">Accept</button>
+                                <button onclick="endSad()">Decline</button>
                             </div>
                         `;
                         break;
                     case 'message':
-                        content.classList.add('background-valentine', 'zoom-in');
+                        content.classList.add('background-valentine');
                         content.innerHTML = `
                             <div class="content-overlay">
                                 <h1>Every day with you feels brighter ☀️ and lighter. You make my heart feel safe, happy, and full 💓. I’m so grateful I get to love you and call you mine 🥰💖</h1>
-                                <button onclick="loadPage('valentine', 'zoom-in')">Continue</button>
+                                <button onclick="loadPage('valentine')">Continue</button>
                             </div>
                         `;
                         break;
                     case 'valentine':
-                        content.classList.add('background-valentine', 'zoom-in');
+                        content.classList.add('background-valentine');
                         content.innerHTML = `
                             <div class="content-overlay">
                                 <h1>Happy Valentine's Day, My Love!</h1>
@@ -204,7 +196,7 @@
                         `;
                         break;
                     case 'sad':
-                        content.classList.add('background-sad', transition);
+                        content.classList.add('background-sad');
                         content.innerHTML = `
                             <div class="content-overlay">
                                 <h1>GOODBYE</h1>
@@ -213,17 +205,14 @@
                         `;
                         break;
                 }
-                // Trigger animation in
-                requestAnimationFrame(() => {
-                    content.classList.remove('hidden');
-                });
-            });
+                fadeIn(fadeDuration);
+            }, fadeDuration);
         }
 
         function checkName() {
             const name = document.getElementById('nameInput').value.trim().toUpperCase();
             if (name === 'SHRISTY GT') {
-                loadPage('couple', 'slide-in-left');
+                loadPage('couple');
             } else {
                 loadPage('question');
             }
@@ -232,7 +221,7 @@
         function checkLove() {
             const love = document.getElementById('loveInput').value.trim().toUpperCase();
             if (love === 'KIRAN GT') {
-                loadPage('missing', 'slide-in-right');
+                loadPage('missing');
             } else {
                 loadPage('question');
             }
@@ -241,26 +230,26 @@
         function checkMiss() {
             const miss = document.getElementById('missInput').value.trim().toUpperCase();
             if (miss === 'I MISS YOU') {
-                loadPage('propose', 'zoom-in');
+                loadPage('propose');
             } else {
                 loadPage('question');
             }
         }
 
-        function nextDay(next, transition) {
-            loadPage(next, transition);
+        function nextDay(next) {
+            loadPage(next, 200); // Faster fade for accepts
         }
 
-        function endSad(transition) {
-            loadPage('sad', transition);
+        function endSad() {
+            loadPage('sad', 500); // Slower fade for declines
         }
 
         function retry() {
             const input = document.getElementById('retryInput').value.trim().toUpperCase();
             if (currentPage === 'question' && (input === 'SHRISTY GT' || input === 'KIRAN GT' || input === 'I MISS YOU')) {
-                if (input === 'SHRISTY GT') loadPage('couple', 'slide-in-left');
-                else if (input === 'KIRAN GT') loadPage('missing', 'slide-in-right');
-                else loadPage('propose', 'zoom-in');
+                if (input === 'SHRISTY GT') loadPage('couple');
+                else if (input === 'KIRAN GT') loadPage('missing');
+                else loadPage('propose');
             } else {
                 alert('Still wrong! Try again.');
             }
