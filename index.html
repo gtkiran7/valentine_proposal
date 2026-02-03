@@ -25,42 +25,22 @@
             justify-content: center;
             opacity: 1;
             transform: translateX(0) scale(1) rotate(0deg);
-            transition: opacity 0.3s ease, transform 0.3s ease;
+            transition: opacity 0.4s ease, transform 0.4s ease;
         }
-        .page.transitioning {
+        .page.hidden {
             opacity: 0;
         }
         .page.slide-in-left {
             transform: translateX(-100%);
-            opacity: 0;
-        }
-        .page.slide-in-left.active {
-            transform: translateX(0);
-            opacity: 1;
         }
         .page.slide-in-right {
             transform: translateX(100%);
-            opacity: 0;
-        }
-        .page.slide-in-right.active {
-            transform: translateX(0);
-            opacity: 1;
         }
         .page.zoom-in {
             transform: scale(0.8);
-            opacity: 0;
-        }
-        .page.zoom-in.active {
-            transform: scale(1);
-            opacity: 1;
         }
         .page.rotate-in {
             transform: rotate(180deg);
-            opacity: 0;
-        }
-        .page.rotate-in.active {
-            transform: rotate(0deg);
-            opacity: 1;
         }
         .background-intro { background-image: url('https://example.com/intro-background.jpg'); }
         .background-couple { background-image: url('https://example.com/couple-background.jpg'); }
@@ -93,15 +73,16 @@
         let currentPage = 'intro';
 
         function loadPage(page, transition = 'fade') {
-            // Start transition out
-            content.classList.add('transitioning');
-            setTimeout(() => {
+            // Instantly hide current page
+            content.classList.add('hidden');
+            // Use requestAnimationFrame for smooth update
+            requestAnimationFrame(() => {
                 // Reset classes
                 content.className = 'page';
-                // Load new content and apply background + initial transition class
+                // Load new content and apply background + transition class
                 switch (page) {
                     case 'intro':
-                        content.classList.add('background-intro', transition + '-in');
+                        content.classList.add('background-intro');
                         content.innerHTML = `
                             <div class="content-overlay">
                                 <h1>Introduce Yourself</h1>
@@ -212,7 +193,7 @@
                         `;
                         break;
                     case 'question':
-                        content.classList.add('background-question', 'fade-in'); // Default fade for errors
+                        content.classList.add('background-question');
                         content.innerHTML = `
                             <div class="content-overlay">
                                 <h1>?</h1>
@@ -232,11 +213,11 @@
                         `;
                         break;
                 }
-                // Trigger the in-animation
-                setTimeout(() => {
-                    content.classList.add('active');
-                }, 10);
-            }, 300); // Match transition duration
+                // Trigger animation in
+                requestAnimationFrame(() => {
+                    content.classList.remove('hidden');
+                });
+            });
         }
 
         function checkName() {
@@ -244,7 +225,7 @@
             if (name === 'SHRISTY GT') {
                 loadPage('couple', 'slide-in-left');
             } else {
-                loadPage('question', 'fade');
+                loadPage('question');
             }
         }
 
@@ -253,7 +234,7 @@
             if (love === 'KIRAN GT') {
                 loadPage('missing', 'slide-in-right');
             } else {
-                loadPage('question', 'fade');
+                loadPage('question');
             }
         }
 
@@ -262,7 +243,7 @@
             if (miss === 'I MISS YOU') {
                 loadPage('propose', 'zoom-in');
             } else {
-                loadPage('question', 'fade');
+                loadPage('question');
             }
         }
 
