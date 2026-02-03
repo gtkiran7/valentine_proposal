@@ -18,25 +18,32 @@
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            background-size: cover;
+            background-position: center;
+            min-height: 400px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
         }
-        .background-intro { background: linear-gradient(to bottom, #ffeaa7, #fab1a0); } /* Warm intro */
-        .background-couple { background: linear-gradient(to bottom, #fd79a8, #e84393); } /* Pink couple theme */
-        .background-question { background: linear-gradient(to bottom, #a29bfe, #6c5ce7); } /* Purple ? theme */
-        .background-missing { background: linear-gradient(to bottom, #74b9ff, #0984e3); } /* Blue missing theme */
-        .background-propose { background: linear-gradient(to bottom, #fdcb6e, #e17055); } /* Orange propose theme */
-        .background-chocolate { background: linear-gradient(to bottom, #a8e6cf, #dcedc8); } /* Green chocolate theme */
-        .background-teddy { background: linear-gradient(to bottom, #f8c291, #f39c12); } /* Yellow teddy theme */
-        .background-promise { background: linear-gradient(to bottom, #badc58, #6ab04c); } /* Green promise theme */
-        .background-hug { background: linear-gradient(to bottom, #f0932b, #eb4d4b); } /* Red hug theme */
-        .background-kiss { background: linear-gradient(to bottom, #ff7675, #d63031); } /* Red kiss theme */
-        .background-valentine { background: linear-gradient(to bottom, #ff6b6b, #ee5a24); } /* Red valentine theme */
-        .background-sad { background: linear-gradient(to bottom, #636e72, #2d3436); color: white; } /* Gray sad theme */
+        .background-intro { background-image: url('https://example.com/intro-background.jpg'); } /* Replace with your intro image URL */
+        .background-couple { background-image: url('https://example.com/couple-background.jpg'); } /* Replace with your couple image URL */
+        .background-question { background-image: url('https://example.com/question-background.jpg'); } /* Replace with your ? image URL */
+        .background-missing { background-image: url('https://example.com/missing-background.jpg'); } /* Replace with your missing image URL */
+        .background-propose { background-image: url('https://example.com/propose-background.jpg'); } /* Replace with your propose image URL */
+        .background-chocolate { background-image: url('https://example.com/chocolate-background.jpg'); } /* Replace with your chocolate image URL */
+        .background-teddy { background-image: url('https://example.com/teddy-background.jpg'); } /* Replace with your teddy image URL */
+        .background-promise { background-image: url('https://example.com/promise-background.jpg'); } /* Replace with your promise image URL */
+        .background-hug { background-image: url('https://example.com/hug-background.jpg'); } /* Replace with your hug image URL */
+        .background-kiss { background-image: url('https://example.com/kiss-background.jpg'); } /* Replace with your kiss image URL */
+        .background-valentine { background-image: url('https://example.com/valentine-background.jpg'); } /* Replace with your valentine image URL */
+        .background-sad { background-image: url('https://example.com/sad-background.jpg'); color: white; } /* Replace with your sad image URL */
         .fireworks { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; overflow: hidden; }
         .firework { position: absolute; font-size: 2em; animation: explode 2s ease-out forwards; }
         @keyframes explode { 0% { transform: scale(0); opacity: 1; } 100% { transform: scale(2); opacity: 0; } }
         input, button { margin: 10px; padding: 10px; font-size: 16px; }
         button { background: #0984e3; color: white; border: none; border-radius: 5px; cursor: pointer; }
         button:hover { background: #74b9ff; }
+        .content-overlay { background: rgba(255, 255, 255, 0.8); padding: 20px; border-radius: 10px; margin: 20px; }
     </style>
 </head>
 <body>
@@ -54,119 +61,132 @@
                 case 'intro':
                     content.className = 'page background-intro';
                     content.innerHTML = `
-                        <h1>Introduce Yourself</h1>
-                        <p>Background: Warm, welcoming introduction screen with soft pastel colors.</p>
-                        <p><strong>WHO ARE YOU?</strong></p>
-                        <input type="text" id="nameInput" placeholder="Enter your name">
-                        <button onclick="checkName()">Submit</button>
+                        <div class="content-overlay">
+                            <h1>Introduce Yourself</h1>
+                            <p><strong>WHO ARE YOU?</strong></p>
+                            <input type="text" id="nameInput" placeholder="Enter your name">
+                            <button onclick="checkName()">Submit</button>
+                        </div>
                     `;
                     break;
                 case 'couple':
                     content.className = 'page background-couple';
                     content.innerHTML = `
-                        <h1>Who Do You Love the Most?</h1>
-                        <p>Background: Romantic couple theme with hearts and photos.</p>
-                        <p>Enter the name of the one you love the most:</p>
-                        <input type="text" id="loveInput" placeholder="Enter name">
-                        <button onclick="checkLove()">Submit</button>
+                        <div class="content-overlay">
+                            <h1>Who Do You Love the Most?</h1>
+                            <p>Enter the name of the one you love the most:</p>
+                            <input type="text" id="loveInput" placeholder="Enter name">
+                            <button onclick="checkLove()">Submit</button>
+                        </div>
                     `;
                     break;
                 case 'missing':
                     content.className = 'page background-missing';
                     content.innerHTML = `
-                        <h1>I Miss You</h1>
-                        <p>Background: Emotional missing theme with longing visuals.</p>
-                        <p>What do you say to express your feelings?</p>
-                        <input type="text" id="missInput" placeholder="Enter your response">
-                        <button onclick="checkMiss()">Submit</button>
+                        <div class="content-overlay">
+                            <h1>I Miss You</h1>
+                            <p>What do you say to express your feelings?</p>
+                            <input type="text" id="missInput" placeholder="Enter your response">
+                            <button onclick="checkMiss()">Submit</button>
+                        </div>
                     `;
                     break;
                 case 'propose':
                     content.className = 'page background-propose';
                     content.innerHTML = `
-                        <h1>Happy Propose Day, My Love!</h1>
-                        <p>Background: Proposal theme with rings and romance.</p>
-                        <button onclick="nextDay('chocolate')">Accept Proposal</button>
-                        <button onclick="endSad()">Decline</button>
+                        <div class="content-overlay">
+                            <h1>Happy Propose Day, My Love!</h1>
+                            <button onclick="nextDay('chocolate')">Accept Proposal</button>
+                            <button onclick="endSad()">Decline</button>
+                        </div>
                     `;
                     break;
                 case 'chocolate':
                     content.className = 'page background-chocolate';
                     content.innerHTML = `
-                        <h1>Happy Chocolate Day, My Love!</h1>
-                        <p>Background: Chocolates everywhere.</p>
-                        <button onclick="nextDay('teddy')">Accept</button>
-                        <button onclick="endSad()">Decline</button>
+                        <div class="content-overlay">
+                            <h1>Happy Chocolate Day, My Love!</h1>
+                            <button onclick="nextDay('teddy')">Accept</button>
+                            <button onclick="endSad()">Decline</button>
+                        </div>
                     `;
                     break;
                 case 'teddy':
                     content.className = 'page background-teddy';
                     content.innerHTML = `
-                        <h1>Happy Teddy Day, My Love!</h1>
-                        <p>Background: Teddies and cuddly toys.</p>
-                        <button onclick="nextDay('promise')">Accept</button>
-                        <button onclick="endSad()">Decline</button>
+                        <div class="content-overlay">
+                            <h1>Happy Teddy Day, My Love!</h1>
+                            <button onclick="nextDay('promise')">Accept</button>
+                            <button onclick="endSad()">Decline</button>
+                        </div>
                     `;
                     break;
                 case 'promise':
                     content.className = 'page background-promise';
                     content.innerHTML = `
-                        <h1>Happy Promise Day, My Love!</h1>
-                        <p>Background: Promising theme with vows.</p>
-                        <button onclick="nextDay('hug')">Accept</button>
-                        <button onclick="endSad()">Decline</button>
+                        <div class="content-overlay">
+                            <h1>Happy Promise Day, My Love!</h1>
+                            <button onclick="nextDay('hug')">Accept</button>
+                            <button onclick="endSad()">Decline</button>
+                        </div>
                     `;
                     break;
                 case 'hug':
                     content.className = 'page background-hug';
                     content.innerHTML = `
-                        <h1>Happy Hug Day, My Love!</h1>
-                        <p>Background: Hugging theme with warm embraces.</p>
-                        <button onclick="nextDay('kiss')">Accept</button>
-                        <button onclick="endSad()">Decline</button>
+                        <div class="content-overlay">
+                            <h1>Happy Hug Day, My Love!</h1>
+                            <button onclick="nextDay('kiss')">Accept</button>
+                            <button onclick="endSad()">Decline</button>
+                        </div>
                     `;
                     break;
                 case 'kiss':
                     content.className = 'page background-kiss';
                     content.innerHTML = `
-                        <h1>Happy Kiss Day, My Love!</h1>
-                        <p>Background: Kissing theme with romantic scenes.</p>
-                        <button onclick="nextDay('message')">Accept</button>
-                        <button onclick="endSad()">Decline</button>
+                        <div class="content-overlay">
+                            <h1>Happy Kiss Day, My Love!</h1>
+                            <button onclick="nextDay('message')">Accept</button>
+                            <button onclick="endSad()">Decline</button>
+                        </div>
                     `;
                     break;
                 case 'message':
                     content.className = 'page background-valentine';
                     content.innerHTML = `
-                        <h1>Every day with you feels brighter ☀️ and lighter. You make my heart feel safe, happy, and full 💓. I’m so grateful I get to love you and call you mine 🥰💖</h1>
-                        <p>Background: Beautiful photo with hearts.</p>
-                        <button onclick="loadPage('valentine')">Continue</button>
+                        <div class="content-overlay">
+                            <h1>Every day with you feels brighter ☀️ and lighter. You make my heart feel safe, happy, and full 💓. I’m so grateful I get to love you and call you mine 🥰💖</h1>
+                            <button onclick="loadPage('valentine')">Continue</button>
+                        </div>
                     `;
                     break;
                 case 'valentine':
                     content.className = 'page background-valentine';
                     content.innerHTML = `
-                        <h1>Happy Valentine's Day, My Love!</h1>
-                        <p>Background: Beautiful Valentine's photo.</p>
-                        <button onclick="fireworks()">Love</button>
+                        <div class="content-overlay">
+                            <h1>Happy Valentine's Day, My Love!</h1>
+                            <button onclick="fireworks()">Love</button>
+                        </div>
                     `;
                     break;
                 case 'question':
                     content.className = 'page background-question';
                     content.innerHTML = `
-                        <h1>?</h1>
-                        <p>Background: Mysterious question mark theme.</p>
-                        <p>Try again!</p>
-                        <input type="text" id="retryInput" placeholder="Enter correct name/response">
-                        <button onclick="retry()">Try Again</button>
+                        <div class="content-overlay">
+                            <h1>?</h1>
+                            <p>Try again!</p>
+                            <input type="text" id="retryInput" placeholder="Enter correct name/response">
+                            <button onclick="retry()">Try Again</button>
+                        </div>
                     `;
                     break;
                 case 'sad':
                     content.className = 'page background-sad';
                     content.innerHTML = `
-                        <h1>GOODBYE</h1>
-                        <p>Background: Sad theme with tears.</p>
-                        <p>Refresh the page to start over.</p>
+                        <div class="content-overlay">
+                            <h1>GOODBYE</h1>
+                            <p>Refresh the page to start over.</p>
+                        </div>
                     `;
                     break;
             }
